@@ -1,0 +1,110 @@
+---
+"$schema": https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json
+name: touist
+scopeName: source.touist
+patterns:
+- name: meta.big-operators
+  begin: \b(bigand|bigor)\s+
+  beginCaptures:
+    '1': {name: keyword.other.touist}
+  end: (end)\s+
+  endCaptures:
+    '1': {name: keyword.other.touist}
+  patterns:
+  - include: '#variable-list'
+  - name: meta.big-operators.in-list
+    begin: (in)\s+
+    beginCaptures:
+      '1': {name: keyword.other.touist}
+    end: (?:(when)\s+|\s*)
+    endCaptures:
+      '1': {name: keyword.other.touist}
+    patterns:
+    - include: '#any-list'
+  - name: meta.big-operators.when-statement
+    begin: (when)\s+
+    beginCaptures:
+      '1': {name: keyword.other.touist}
+    end: (:)
+    endCaptures:
+      '1': {name: keyword.other.big-operator.begin-body.touist}
+    patterns:
+    - include: 'source.touist'
+  - name: keyword.other.big-operator.begin-body.touist
+    match: (:)\s+
+  - include: 'source.touist'
+- name: meta.let-construct
+  begin: (let)\s+
+  beginCaptures:
+    '1': {name: keyword.other.touist}
+  end: (:)
+  endCaptures:
+  '1': {name: keyword.other.touist}
+  patterns:
+  - name: meta.let-construct.variable-list
+    begin: \s*
+    end: '\s*(=)\s*'
+    endCaptures:
+    '1': {name: keyword.other.touist}
+    patterns:
+    - include: '#variable-list'
+  - name: meta.let-construct.content-list
+    begin: \s*
+    end: \s*
+    patterns:
+    - include: '#any-list'
+
+- include: "#keywords"
+- include: "#variable"
+- include: "#comment"
+- include: "#operator"
+- include: "#numbers"
+- include: "#term-tuple"
+- include: "#term"
+
+
+repository:
+  keywords:
+    patterns:
+    - name: keyword.control.touist
+      match: "(if|int|float|abs|mod|in)"
+  operator:
+    patterns:
+    - name: keyword.operator.touist
+      match: "(and|or|xor|=>|<=>|not)"
+  comment:
+    patterns:
+    - name: comment.line
+      match: ";;.*"
+  numbers:
+    patterns:
+    - name: constant.numeric.touist
+      match: "[0-9]+(\\.[0-9]+)?"
+  term:
+    patterns:
+    - name: string.unquoted.touist
+      match: "[a-zA-Z][a-zA-Z_0-9]*"
+  term-tuple:
+    begin: '([a-zA-Z][a-zA-Z_0-9]*)(\()'
+    beginCaptures:
+      '1': {name: string.unquoted.touist}
+      '2': {name: string.unquoted.touist}
+    end: '(\))'
+    endCaptures:
+      '1': {name: string.unquoted.touist}
+    patterns:
+    - include: '#any-list'
+  variable:
+    patterns:
+    - name: variable.other.touist
+      match: "\\$[a-zA-Z0-9_]+"
+  variable-list:
+    patterns:
+    - include: '#variable'
+    - name: punctuation.separator.variable-list.touist
+      match: ',\s*'
+  any-list:
+    patterns:
+    - name: punctuation.separator.variable-list.touist
+      match: ',\s*'
+    - include: 'source.touist'
