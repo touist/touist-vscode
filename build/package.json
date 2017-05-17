@@ -12,6 +12,6 @@
     "@types/js-yaml": "latest",
     "@types/node": "latest",
     "js-yaml": "latest",
-    "typescript": "latest"
+    "plist": "latest"
   }
 }
