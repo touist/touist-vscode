@@ -71,9 +71,6 @@
 			]
 		},
 		{
-			"1": {
-				"name": "keyword.other.touist"
-			},
 			"name": "meta.let-construct",
 			"begin": "(let)\\s+",
 			"beginCaptures": {
@@ -82,16 +79,21 @@
 				}
 			},
 			"end": "(:)",
-			"endCaptures": null,
+			"endCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
 			"patterns": [
 				{
-					"1": {
-						"name": "keyword.other.touist"
-					},
 					"name": "meta.let-construct.variable-list",
 					"begin": "\\s*",
 					"end": "\\s*(=)\\s*",
-					"endCaptures": null,
+					"endCaptures": {
+						"1": {
+							"name": "keyword.other.touist"
+						}
+					},
 					"patterns": [
 						{
 							"include": "#variable-list"

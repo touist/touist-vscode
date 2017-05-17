@@ -39,13 +39,13 @@ patterns:
     '1': {name: keyword.other.touist}
   end: (:)
   endCaptures:
-  '1': {name: keyword.other.touist}
+    '1': {name: keyword.other.touist}
   patterns:
   - name: meta.let-construct.variable-list
     begin: \s*
     end: '\s*(=)\s*'
     endCaptures:
-    '1': {name: keyword.other.touist}
+      '1': {name: keyword.other.touist}
     patterns:
     - include: '#variable-list'
   - name: meta.let-construct.content-list

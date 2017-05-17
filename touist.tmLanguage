@@ -114,11 +114,6 @@
         </array>
       </dict>
       <dict>
-        <key>1</key>
-        <dict>
-          <key>name</key>
-          <string>keyword.other.touist</string>
-        </dict>
         <key>name</key>
         <string>meta.let-construct</string>
         <key>begin</key>
@@ -134,14 +129,16 @@
         <key>end</key>
         <string>(:)</string>
         <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.touist</string>
+          </dict>
+        </dict>
         <key>patterns</key>
         <array>
           <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>keyword.other.touist</string>
-            </dict>
             <key>name</key>
             <string>meta.let-construct.variable-list</string>
             <key>begin</key>
@@ -149,6 +146,13 @@
             <key>end</key>
             <string>\s*(=)\s*</string>
             <key>endCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.other.touist</string>
+              </dict>
+            </dict>
             <key>patterns</key>
             <array>
               <dict>
