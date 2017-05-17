@@ -1,0 +1,26 @@
+{
+    "name": "touist",
+    "displayName": "touist",
+    "description": "Syntax support for the Touist language for logic",
+    "version": "0.0.1",
+    "publisher": "touist",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "touist",
+            "aliases": ["touist", "touist"],
+            "extensions": [".touistl",".touist"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "touist",
+            "scopeName": "source.touist",
+            "path": "./touist.tmLanguage"
+        }]
+    }
+}
