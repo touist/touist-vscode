@@ -3,6 +3,7 @@
 name: touist
 scopeName: source.touist
 patterns:
+
 - name: meta.big-operators
   begin: \b(bigand|bigor)\s+
   beginCaptures:
@@ -33,26 +34,23 @@ patterns:
   - name: keyword.other.big-operator.begin-body.touist
     match: (:)\s+
   - include: 'source.touist'
-- name: meta.let-construct
+
+- name: meta.let-construct.variable-list
   begin: (let)\s+
+  beginCaptures:
+    '1': {name: keyword.other.touist}
+  end: (?<==)
+  patterns:
+  - include: '#variable-list'
+- name: meta.let-construct.content-list
+  begin: (?>=let.*)(=)\s+
   beginCaptures:
     '1': {name: keyword.other.touist}
   end: (:)
   endCaptures:
     '1': {name: keyword.other.touist}
   patterns:
-  - name: meta.let-construct.variable-list
-    begin: \s*
-    end: '\s*(=)\s*'
-    endCaptures:
-      '1': {name: keyword.other.touist}
-    patterns:
-    - include: '#variable-list'
-  - name: meta.let-construct.content-list
-    begin: \s*
-    end: \s*
-    patterns:
-    - include: '#any-list'
+  - include: '#any-list'
 
 - include: "#keywords"
 - include: "#variable"

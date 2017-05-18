@@ -115,9 +115,32 @@
       </dict>
       <dict>
         <key>name</key>
-        <string>meta.let-construct</string>
+        <string>meta.let-construct.variable-list</string>
         <key>begin</key>
         <string>(let)\s+</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;==)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#variable-list</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.let-construct.content-list</string>
+        <key>begin</key>
+        <string>(?&gt;=let.*)(=)\s+</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -139,42 +162,8 @@
         <key>patterns</key>
         <array>
           <dict>
-            <key>name</key>
-            <string>meta.let-construct.variable-list</string>
-            <key>begin</key>
-            <string>\s*</string>
-            <key>end</key>
-            <string>\s*(=)\s*</string>
-            <key>endCaptures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>keyword.other.touist</string>
-              </dict>
-            </dict>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>include</key>
-                <string>#variable-list</string>
-              </dict>
-            </array>
-          </dict>
-          <dict>
-            <key>name</key>
-            <string>meta.let-construct.content-list</string>
-            <key>begin</key>
-            <string>\s*</string>
-            <key>end</key>
-            <string>\s*</string>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>include</key>
-                <string>#any-list</string>
-              </dict>
-            </array>
+            <key>include</key>
+            <string>#any-list</string>
           </dict>
         </array>
       </dict>
