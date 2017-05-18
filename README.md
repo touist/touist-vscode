@@ -8,6 +8,9 @@ This tmLanguage could also be used in other editors (textmate, sublime text) but
 I didn't write a package/extension specifically for them; feel free to pick the
 tmLanguage for any other editor!
 
+Github source [is here][1].
+
+[1]: https://github.com/touist/touist-vscode
 
 ## Contribute
 
