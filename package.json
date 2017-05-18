@@ -3,7 +3,7 @@
     "displayName": "touist",
     "description": "Syntax support for the Touist language for logic",
     "version": "0.0.1",
-    "publisher": "touist",
+    "publisher": "maelvalais",
     "engines": {
         "vscode": "^1.10.0"
     },
