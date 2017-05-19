@@ -2,7 +2,7 @@
     "name": "touist",
     "displayName": "touist",
     "description": "Syntax support for the Touist language for logic",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "maelvalais",
     "icon": "images/touist-logo.svg",
     "engines": {
