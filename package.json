@@ -22,6 +22,20 @@
             "language": "touist",
             "scopeName": "source.touist",
             "path": "./touist.tmLanguage"
-        }]
+        }],
+        "problemMatchers": [{
+            "name": "touist",
+            "owner": "touist",
+            "fileLocation": "relative",
+            "pattern": [{
+                "regexp": "^([^:]+): line (\\d+), col (\\d+)-(\\d+): (error|warning): (.*)$",
+                "file": 1,
+                "line": 2,
+                "column": 3,
+                "endColumn": 4,
+                "severity": 5,
+                "message": 6
+            }]
+      }]
     }
 }

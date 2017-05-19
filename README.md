@@ -12,6 +12,26 @@ Github source [is here][1].
 
 [1]: https://github.com/touist/touist-vscode
 
+## See warning and errors from touist
+
+You can copy the following code into the `.vscode/tasks.json` file in your project
+so that you can use <kbd>shift</kbd> + <kbd>command</kbd> + <kbd>B</kbd> for
+ckecking syntax errors in touist files:
+
+```js
+{
+	"version": "0.1.0",
+	"command": "touist",
+	"showOutput": "always",
+	"tasks": [{
+		"taskName": "build",
+        "args": ["--linter","${relativeFile}"],
+        "isShellCommand": true,
+		"problemMatcher": "$touist"
+	}]
+}
+```
+
 ## Contribute
 
 If you to fix the syntax file `touist.tmLanguage`, you can use the
