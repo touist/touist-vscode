@@ -125,6 +125,16 @@
 		},
 		{
 			"include": "#term"
+		},
+		{
+			"name": "meta.parenthesis",
+			"begin": "(\\()",
+			"end": "(\\))",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
 		}
 	],
 	"repository": {

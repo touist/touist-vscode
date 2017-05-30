@@ -195,6 +195,21 @@
         <key>include</key>
         <string>#term</string>
       </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.parenthesis</string>
+        <key>begin</key>
+        <string>(\()</string>
+        <key>end</key>
+        <string>(\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>$self</string>
+          </dict>
+        </array>
+      </dict>
     </array>
     <key>repository</key>
     <dict>
