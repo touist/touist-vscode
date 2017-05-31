@@ -37,5 +37,12 @@
                 "message": 6
             }]
       }]
+    },
+    "dependencies": {
+        "watch": "latest"
+    },
+    "scripts" : {
+        "postinstall": "cd build; npm install",
+        "start": "watch \"cd build && node build.js\" syntaxes/"
     }
 }

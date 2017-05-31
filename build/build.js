@@ -4,10 +4,10 @@ var fs = require("fs");
 var yaml = require("js-yaml");
 var plist = require('plist');
 
-var text = fs.readFileSync("../touist.YAML-tmLanguage", "utf8");
+var text = fs.readFileSync("../syntaxes/touist.YAML-tmLanguage", "utf8");
 var grammar = yaml.safeLoad(text);
 
 // Json version
-fs.writeFileSync("../touist.JSON-tmLanguage", JSON.stringify(grammar, null, '\t'));
+fs.writeFileSync("../syntaxes/touist.JSON-tmLanguage", JSON.stringify(grammar, null, '\t'));
 // Plist version (tmLanguage uses the plist format)
-fs.writeFileSync("../touist.tmLanguage", plist.build(grammar));
+fs.writeFileSync("../syntaxes/touist.tmLanguage", plist.build(grammar));
