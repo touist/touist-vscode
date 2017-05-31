@@ -242,7 +242,7 @@
         <key>name</key>
         <string>meta.function-binary</string>
         <key>begin</key>
-        <string>(union|inter|subset|diff)(\()</string>
+        <string>(union|inter|subset|diff|exact|atmost|atleast)(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>

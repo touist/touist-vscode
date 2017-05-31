@@ -74,7 +74,7 @@ patterns:
   patterns:
   - include: source.touist
 - name: meta.function-binary
-  begin: (union|inter|subset|diff)(\()
+  begin: (union|inter|subset|diff|exact|atmost|atleast)(\()
   beginCaptures:
     '1': {name: entity.name.function.binary.touist}
   end: (\))
