@@ -41,7 +41,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>meta.big-operators.in-list</string>
+            <string>meta.big-operators.variable-values</string>
             <key>begin</key>
             <string>(in)\s+</string>
             <key>beginCaptures</key>
@@ -49,17 +49,17 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.touist</string>
+                <string>keyword.other.big-operators.in-symbol.touist</string>
               </dict>
             </dict>
             <key>end</key>
-            <string>(?:(when)\s+|\s*)</string>
+            <string>(?:(?=when)|(?&lt;!when)(:)\s*)</string>
             <key>endCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.touist</string>
+                <string>keyword.other.big-operator.begin-body.touist</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -80,7 +80,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.touist</string>
+                <string>keyword.other.big-operator.when.touist</string>
               </dict>
             </dict>
             <key>end</key>
@@ -100,12 +100,6 @@
                 <string>source.touist</string>
               </dict>
             </array>
-          </dict>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.big-operator.begin-body.touist</string>
-            <key>match</key>
-            <string>(:)\s+</string>
           </dict>
           <dict>
             <key>include</key>
@@ -168,8 +162,200 @@
         </array>
       </dict>
       <dict>
+        <key>name</key>
+        <string>meta.qbf</string>
+        <key>begin</key>
+        <string>(exists|forall)\s+</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.qbf-exists.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(:)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#any-list</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.let-construct.content-list</string>
+        <key>begin</key>
+        <string>(?&gt;=let.*)(=)\s+</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(:)</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.touist</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#any-list</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.function-unary</string>
+        <key>begin</key>
+        <string>(abs|powerset|int|card|empty|sqrt)(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.unary.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>source.touist</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.function-binary</string>
+        <key>begin</key>
+        <string>(union|inter|subset|diff)(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.binary.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#any-list</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>meta.if-then-else.touist</string>
+        <key>begin</key>
+        <string>(?=if)</string>
+        <key>end</key>
+        <string>(end)\s+</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.if-then-else.end-keyword.touist</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>meta.if-then-else.condition-statement.touist</string>
+            <key>begin</key>
+            <string>(if)\s+</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.if-then-else.if-keyword.touist</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=then)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>meta.if-then-else.then-statement.touist</string>
+            <key>begin</key>
+            <string>(then)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.if-then-else.then-keyword.touist</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=else)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>meta.if-then-else.else-statement.touist</string>
+            <key>begin</key>
+            <string>(else)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.if-then-else.else-keyword.touist</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=end)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <dict>
         <key>include</key>
         <string>#keywords</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#variable-tuple</string>
       </dict>
       <dict>
         <key>include</key>
@@ -206,7 +392,7 @@
         <array>
           <dict>
             <key>include</key>
-            <string>$self</string>
+            <string>source.touist</string>
           </dict>
         </array>
       </dict>
@@ -219,9 +405,15 @@
         <array>
           <dict>
             <key>name</key>
-            <string>keyword.control.touist</string>
+            <string>keyword.control.data-model-separator.touist</string>
             <key>match</key>
-            <string>(if|int|float|abs|mod|in)</string>
+            <string>\b(data)\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.infix.touist</string>
+            <key>match</key>
+            <string>\b(mod|in)\b</string>
           </dict>
         </array>
       </dict>
@@ -233,7 +425,7 @@
             <key>name</key>
             <string>keyword.operator.touist</string>
             <key>match</key>
-            <string>(and|or|xor|=&gt;|&lt;=&gt;|not)</string>
+            <string>(and|or|xor|=&gt;|&lt;=&gt;|not|&lt;=|&lt;|&gt;|==|=|\+|-|\*|\/)</string>
           </dict>
         </array>
       </dict>
@@ -267,7 +459,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>string.unquoted.touist</string>
+            <string>string.unquoted.term.touist</string>
             <key>match</key>
             <string>[a-zA-Z][a-zA-Z_0-9]*</string>
           </dict>
@@ -285,6 +477,46 @@
             <string>string.unquoted.touist</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.touist</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(\))</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.touist</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#any-list</string>
+          </dict>
+        </array>
+      </dict>
+      <key>variable-tuple</key>
+      <dict>
+        <key>begin</key>
+        <string>(\$)([a-zA-Z][a-zA-Z_0-9]*)(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.touist</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.touist</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>string.unquoted.touist</string>
@@ -342,7 +574,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>punctuation.separator.variable-list.touist</string>
+            <string>punctuation.separator.any-list.touist</string>
             <key>match</key>
             <string>,\s*</string>
           </dict>

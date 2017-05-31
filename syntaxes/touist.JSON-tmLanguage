@@ -1,0 +1,384 @@
+{
+	"$schema": "https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "touist",
+	"scopeName": "source.touist",
+	"patterns": [
+		{
+			"name": "meta.big-operators",
+			"begin": "\\b(bigand|bigor)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"end": "(end)\\s+",
+			"endCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#variable-list"
+				},
+				{
+					"name": "meta.big-operators.variable-values",
+					"begin": "(in)\\s+",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.big-operators.in-symbol.touist"
+						}
+					},
+					"end": "(?:(?=when)|(?<!when)(:)\\s*)",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.other.big-operator.begin-body.touist"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#any-list"
+						}
+					]
+				},
+				{
+					"name": "meta.big-operators.when-statement",
+					"begin": "(when)\\s+",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.big-operator.when.touist"
+						}
+					},
+					"end": "(:)",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.other.big-operator.begin-body.touist"
+						}
+					},
+					"patterns": [
+						{
+							"include": "source.touist"
+						}
+					]
+				},
+				{
+					"include": "source.touist"
+				}
+			]
+		},
+		{
+			"name": "meta.let-construct.variable-list",
+			"begin": "(let)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"end": "(?<==)",
+			"patterns": [
+				{
+					"include": "#variable-list"
+				}
+			]
+		},
+		{
+			"name": "meta.let-construct.content-list",
+			"begin": "(?>=let.*)(=)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"end": "(:)",
+			"endCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		{
+			"name": "meta.qbf",
+			"begin": "(exists|forall)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.qbf-exists.touist"
+				}
+			},
+			"end": "(:)",
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		{
+			"name": "meta.let-construct.content-list",
+			"begin": "(?>=let.*)(=)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"end": "(:)",
+			"endCaptures": {
+				"1": {
+					"name": "keyword.other.touist"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		{
+			"name": "meta.function-unary",
+			"begin": "(abs|powerset|int|card|empty|sqrt)(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.unary.touist"
+				}
+			},
+			"end": "(\\))",
+			"patterns": [
+				{
+					"include": "source.touist"
+				}
+			]
+		},
+		{
+			"name": "meta.function-binary",
+			"begin": "(union|inter|subset|diff)(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.binary.touist"
+				}
+			},
+			"end": "(\\))",
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		{
+			"name": "meta.if-then-else.touist",
+			"begin": "(?=if)",
+			"end": "(end)\\s+",
+			"endCaptures": {
+				"1": {
+					"name": "keyword.control.if-then-else.end-keyword.touist"
+				}
+			},
+			"patterns": [
+				{
+					"name": "meta.if-then-else.condition-statement.touist",
+					"begin": "(if)\\s+",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.control.if-then-else.if-keyword.touist"
+						}
+					},
+					"end": "(?=then)",
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"name": "meta.if-then-else.then-statement.touist",
+					"begin": "(then)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.control.if-then-else.then-keyword.touist"
+						}
+					},
+					"end": "(?=else)",
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"name": "meta.if-then-else.else-statement.touist",
+					"begin": "(else)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.control.if-then-else.else-keyword.touist"
+						}
+					},
+					"end": "(?=end)",
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				}
+			]
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#variable-tuple"
+		},
+		{
+			"include": "#variable"
+		},
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#operator"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#term-tuple"
+		},
+		{
+			"include": "#term"
+		},
+		{
+			"name": "meta.parenthesis",
+			"begin": "(\\()",
+			"end": "(\\))",
+			"patterns": [
+				{
+					"include": "source.touist"
+				}
+			]
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.data-model-separator.touist",
+					"match": "\\b(data)\\b"
+				},
+				{
+					"name": "entity.name.function.infix.touist",
+					"match": "\\b(mod|in)\\b"
+				}
+			]
+		},
+		"operator": {
+			"patterns": [
+				{
+					"name": "keyword.operator.touist",
+					"match": "(and|or|xor|=>|<=>|not|<=|<|>|==|=|\\+|-|\\*|\\/)"
+				}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.line",
+					"match": ";;.*"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.touist",
+					"match": "[0-9]+(\\.[0-9]+)?"
+				}
+			]
+		},
+		"term": {
+			"patterns": [
+				{
+					"name": "string.unquoted.term.touist",
+					"match": "[a-zA-Z][a-zA-Z_0-9]*"
+				}
+			]
+		},
+		"term-tuple": {
+			"begin": "([a-zA-Z][a-zA-Z_0-9]*)(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "string.unquoted.touist"
+				},
+				"2": {
+					"name": "string.unquoted.touist"
+				}
+			},
+			"end": "(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "string.unquoted.touist"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		"variable-tuple": {
+			"begin": "(\\$)([a-zA-Z][a-zA-Z_0-9]*)(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "variable.other.touist"
+				},
+				"2": {
+					"name": "string.unquoted.touist"
+				},
+				"3": {
+					"name": "string.unquoted.touist"
+				}
+			},
+			"end": "(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "string.unquoted.touist"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#any-list"
+				}
+			]
+		},
+		"variable": {
+			"patterns": [
+				{
+					"name": "variable.other.touist",
+					"match": "\\$[a-zA-Z0-9_]+"
+				}
+			]
+		},
+		"variable-list": {
+			"patterns": [
+				{
+					"include": "#variable"
+				},
+				{
+					"name": "punctuation.separator.variable-list.touist",
+					"match": ",\\s*"
+				}
+			]
+		},
+		"any-list": {
+			"patterns": [
+				{
+					"name": "punctuation.separator.any-list.touist",
+					"match": ",\\s*"
+				},
+				{
+					"include": "source.touist"
+				}
+			]
+		}
+	}
+}

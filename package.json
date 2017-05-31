@@ -21,7 +21,7 @@
         "grammars": [{
             "language": "touist",
             "scopeName": "source.touist",
-            "path": "./touist.tmLanguage"
+            "path": "./syntaxes/touist.tmLanguage"
         }],
         "problemMatchers": [{
             "name": "touist",
