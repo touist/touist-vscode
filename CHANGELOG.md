@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.0.6
+- fix image not displaying in README
+
 ## 0.0.5
 - support for 'for ... in ...' in exists and forall operators
 - support for '\\' (newline) in formulas
