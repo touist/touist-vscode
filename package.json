@@ -4,6 +4,7 @@
     "description": "Syntax support for the Touist language for logic",
     "version": "0.0.5",
     "publisher": "maelvalais",
+    "repository": "https://github.com/touist/touist-vscode",
     "icon": "images/touist-logo.svg",
     "engines": {
         "vscode": "^1.10.0"
