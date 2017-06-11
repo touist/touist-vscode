@@ -1,6 +1,8 @@
 Touist for vscode
 =================
 
+![VS Code screenshot](images/screenshot.png)
+
 This project adds support for the touist language to vscode. It mainly consists
 of a syntax coloring feature (through the touist.tmLanguage file).
 
@@ -21,13 +23,13 @@ ckecking syntax errors in touist files:
 ```js
 {
 	"version": "0.1.0",
-	"command": "touist",
-	"showOutput": "always",
 	"tasks": [{
 		"taskName": "build",
-        "args": ["--linter","${relativeFile}"],
+		"command": "touist",
+        "args": ["--linter", "--qbf", "${relativeFile}", "--wrap-width","0"],
         "isShellCommand": true,
-		"problemMatcher": "$touist"
+		"problemMatcher": "$touist",
+		"showOutput": "always"
 	}]
 }
 ```
