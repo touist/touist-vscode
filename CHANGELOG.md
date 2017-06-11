@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.0.5
+- support for 'for ... in ...' in exists and forall operators
+- support for '\\' (newline) in formulas
+- added a screenshot in the README
+
 ## 0.0.4
 - added many missing keywords (if then else exists forall diff...) and
   improved overall syntax parsing.
