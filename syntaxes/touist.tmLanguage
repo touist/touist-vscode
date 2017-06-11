@@ -413,7 +413,7 @@
             <key>name</key>
             <string>entity.name.function.infix.touist</string>
             <key>match</key>
-            <string>\b(mod|in)\b</string>
+            <string>\b(mod|in|for)\b</string>
           </dict>
         </array>
       </dict>
@@ -438,6 +438,12 @@
             <string>comment.line</string>
             <key>match</key>
             <string>;;.*</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>comment</string>
+            <key>match</key>
+            <string>\\\\</string>
           </dict>
         </array>
       </dict>

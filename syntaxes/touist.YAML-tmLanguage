@@ -128,7 +128,7 @@ repository:
     - name: keyword.control.data-model-separator.touist
       match: \b(data)\b
     - name: entity.name.function.infix.touist
-      match: \b(mod|in)\b
+      match: \b(mod|in|for)\b
   operator:
     patterns:
     - name: keyword.operator.touist
@@ -137,6 +137,8 @@ repository:
     patterns:
     - name: comment.line
       match: ";;.*"
+    - name: comment
+      match: '\\\\'
   numbers:
     patterns:
     - name: constant.numeric.touist

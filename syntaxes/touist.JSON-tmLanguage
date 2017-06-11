@@ -267,7 +267,7 @@
 				},
 				{
 					"name": "entity.name.function.infix.touist",
-					"match": "\\b(mod|in)\\b"
+					"match": "\\b(mod|in|for)\\b"
 				}
 			]
 		},
@@ -284,6 +284,10 @@
 				{
 					"name": "comment.line",
 					"match": ";;.*"
+				},
+				{
+					"name": "comment",
+					"match": "\\\\\\\\"
 				}
 			]
 		},
