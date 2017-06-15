@@ -8,7 +8,7 @@ patterns:
   begin: \b(bigand|bigor)\s+
   beginCaptures:
     '1': {name: keyword.other.touist}
-  end: (end)\s+
+  end: \b(end)\b
   endCaptures:
     '1': {name: keyword.other.touist}
   patterns:
