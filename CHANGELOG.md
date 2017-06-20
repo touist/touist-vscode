@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.0.7
+- The main file extension for saving a touist file is now `.touist` instead
+  of `.touistl`
+
 ## 0.0.6
 - fix image not displaying in README
 
