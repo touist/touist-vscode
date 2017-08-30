@@ -5,7 +5,7 @@
     "version": "0.0.8",
     "publisher": "maelvalais",
     "repository": "https://github.com/touist/touist-vscode",
-    "icon": "images/touist-logo.svg",
+    "icon": "images/touist-logo.png",
     "license": "MIT",
     "engines": {
         "vscode": "^1.10.0"
