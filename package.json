@@ -2,10 +2,11 @@
     "name": "touist",
     "displayName": "touist",
     "description": "Syntax support for the Touist language for logic",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "publisher": "maelvalais",
     "repository": "https://github.com/touist/touist-vscode",
     "icon": "images/touist-logo.svg",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.10.0"
     },
@@ -13,37 +14,56 @@
         "Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "touist",
-            "aliases": ["touist", "touist"],
-            "extensions": [".touist",".touistl"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "touist",
-            "scopeName": "source.touist",
-            "path": "./syntaxes/touist.tmLanguage"
-        }],
-        "problemMatchers": [{
-            "name": "touist",
-            "owner": "touist",
-            "fileLocation": "relative",
-            "pattern": [{
-                "regexp": "^([^:]+): line (\\d+), col (\\d+)-(\\d+): (error|warning): (.*)$",
-                "file": 1,
-                "line": 2,
-                "column": 3,
-                "endColumn": 4,
-                "severity": 5,
-                "message": 6
-            }]
-      }]
+        "languages": [
+            {
+                "id": "touist",
+                "aliases": [
+                    "touist",
+                    "touist"
+                ],
+                "extensions": [
+                    ".touist",
+                    ".touistl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "touist",
+                "scopeName": "source.touist",
+                "path": "./syntaxes/touist.tmLanguage"
+            }
+        ],
+        "problemMatchers": [
+            {
+                "name": "touist",
+                "owner": "touist",
+                "fileLocation": "relative",
+                "pattern": [
+                    {
+                        "regexp": "^([^:]+): line (\\d+), col (\\d+)-(\\d+): (error|warning): (.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "endColumn": 4,
+                        "severity": 5,
+                        "message": 6
+                    }
+                ]
+            }
+        ]
     },
     "devDependencies": {
-        "watch": "latest"
+        "watch": "latest",
+        "typescript": "^2.0.3"
     },
-    "scripts" : {
+    "extensionDependencies": [
+        "latex-preview"
+    ],
+    "scripts": {
         "postinstall": "cd build; npm install",
-        "start": "watch \"cd build && node build.js\" syntaxes/"
+        "start": "watch \"cd build && node build.js\" syntaxes/",
+        "compile": "tsc -watch -p src"
     }
 }
