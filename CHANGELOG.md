@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.0.8
+- Fixed coloration of variables tuples (e.g., `$var(a,b)`)
+
 ## 0.0.7
 - The main file extension for saving a touist file is now `.touist` instead
   of `.touistl`

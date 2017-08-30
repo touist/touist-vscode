@@ -509,23 +509,13 @@
       <key>variable-tuple</key>
       <dict>
         <key>begin</key>
-        <string>(\$)([a-zA-Z][a-zA-Z_0-9]*)(\()</string>
+        <string>(\$[a-zA-Z][a-zA-Z_0-9]*\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>variable.other.touist</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.touist</string>
-          </dict>
-          <key>3</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.touist</string>
           </dict>
         </dict>
         <key>end</key>
@@ -535,7 +525,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>string.unquoted.touist</string>
+            <string>variable.other.touist</string>
           </dict>
         </dict>
         <key>patterns</key>

@@ -44,3 +44,6 @@ If you to fix the syntax file `touist.tmLanguage`, you can use the
 
 to compile yaml into tmLanguage. The JSON-tmLanguage is also generated in
 case it can help for adding syntax support to an other editor.
+
+To debug the syntax highlighting, you can use the command
+**Developer Tools: Inspect TM Tokens**.

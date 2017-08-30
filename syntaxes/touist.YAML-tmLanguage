@@ -158,14 +158,12 @@ repository:
     patterns:
     - include: '#any-list'
   variable-tuple:
-    begin: (\$)([a-zA-Z][a-zA-Z_0-9]*)(\()
+    begin: (\$[a-zA-Z][a-zA-Z_0-9]*\()
     beginCaptures:
       '1': {name: variable.other.touist}
-      '2': {name: string.unquoted.touist}
-      '3': {name: string.unquoted.touist}
     end: (\))
     endCaptures:
-      '1': {name: string.unquoted.touist}
+      '1': {name: variable.other.touist}
     patterns:
     - include: '#any-list'
   variable:
