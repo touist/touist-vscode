@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.0.9
+- Fixed extension that could not be installed on vscode because of an unexisting
+  dependendy 'latex-preview'.
+
 ## 0.0.8
 - Fixed coloration of variables tuples (e.g., `$var(a,b)`)
 
