@@ -2,7 +2,7 @@
     "name": "touist",
     "displayName": "touist",
     "description": "Syntax support for the Touist language for logic",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "maelvalais",
     "repository": "https://github.com/touist/touist-vscode",
     "icon": "images/touist-logo.png",
@@ -58,9 +58,6 @@
         "watch": "latest",
         "typescript": "^2.0.3"
     },
-    "extensionDependencies": [
-        "latex-preview"
-    ],
     "scripts": {
         "postinstall": "cd build; npm install",
         "start": "watch \"cd build && node build.js\" syntaxes/",
