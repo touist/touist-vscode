@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.1.0
+- add linting. The touist.touistPath can be given in order to set the path
+  to touist.
+
 ## 0.0.9
 - Fixed extension that could not be installed on vscode because of an unexisting
   dependendy 'latex-preview'.

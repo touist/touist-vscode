@@ -1,10 +1,9 @@
 Touist for vscode
 =================
 
-![VS Code screenshot](images/screenshot.png)
+Bring syntax coloring and linting to vscode.
 
-This project adds support for the touist language to vscode. It mainly consists
-of a syntax coloring feature (through the touist.tmLanguage file).
+![VS Code screenshot](images/screenshot.png)
 
 This tmLanguage could also be used in other editors (textmate, sublime text) but
 I didn't write a package/extension specifically for them; feel free to pick the
