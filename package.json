@@ -8,12 +8,42 @@
     "icon": "images/touist-logo.png",
     "license": "MIT",
     "engines": {
-        "vscode": "^1.10.0"
+        "vscode": "^1.6.0"
     },
     "categories": [
-        "Languages"
+        "Languages",
+        "Linters"
     ],
+    "activationEvents": [
+        "onLanguage:touist"
+    ],
+    "main": "./out/src/extension",
     "contributes": {
+        "configuration": {
+            "title": "Touist configuration",
+            "properties": {
+                "touist.touistPath": {
+                    "type": "string",
+                    "default": "touist",
+                    "description": "Path to touist."
+                },
+                "touist.lintOnChange": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Do lint when made changes."
+                },
+                "touist.lintOnSave": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do lint when save document."
+                },
+                "touist.lintDelay": {
+                    "type": "number",
+                    "default": 500,
+                    "description": "Time to delay lint when made changes."
+                }
+            }
+        },
         "languages": [
             {
                 "id": "touist",
@@ -61,12 +91,13 @@
         "start": "node build.js -w"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
         "vscode": "^0.11.0",
-        "@types/js-yaml": "latest",
-        "@types/node": "latest",
+        "typescript": "^2.7.2",
         "js-yaml": "latest",
         "plist": "latest",
         "glob-watcher": "latest"
+    },
+    "dependencies": {
+        "get-stream": "^2.2.1"
     }
 }
