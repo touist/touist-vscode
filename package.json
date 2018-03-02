@@ -2,7 +2,7 @@
     "name": "touist",
     "displayName": "touist",
     "description": "Syntax support for the Touist language for logic",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "maelvalais",
     "repository": "https://github.com/touist/touist-vscode",
     "icon": "images/touist-logo.png",

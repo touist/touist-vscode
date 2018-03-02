@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the touist tmLanguage files will be logged here.
 
+## 0.1.1
+- You can choose the language (SAT, QBF or SMT) in a bottom-right
+  corner menu. Better handling of errors (touist missing, etc.) during linting
+
 ## 0.1.0
 - add linting. The touist.touistPath can be given in order to set the path
   to touist.
