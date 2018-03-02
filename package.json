@@ -34,16 +34,27 @@
                 },
                 "touist.lintOnSave": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "Do lint when save document."
                 },
                 "touist.lintDelay": {
                     "type": "number",
                     "default": 500,
                     "description": "Time to delay lint when made changes."
+                },
+                "touist.enableLint": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the linter using touist --linter."
                 }
             }
         },
+        "commands": [
+            {
+                "command": "touist.changeLanguage",
+                "title": "Touist: change language"
+            }
+        ],
         "languages": [
             {
                 "id": "touist",
@@ -98,6 +109,7 @@
         "glob-watcher": "latest"
     },
     "dependencies": {
-        "get-stream": "^2.2.1"
+        "get-stream": "^2.2.1",
+        "compare-versions": "latest"
     }
 }

@@ -6,80 +6,151 @@ import * as Path from 'path';
 import * as Fs from 'fs';
 import { log } from 'util';
 
+const compareVersions = require('compare-versions');
+
 let getStream = require('get-stream');
 let configuration = vscode.workspace.getConfiguration("touist");
+let language = "sat";
+let enabled = configuration.get<boolean>("enableLint");
+let version = "";
+let status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+    child_process.exec(`${configuration.get<string>('touistPath')} --version`, (err, stdout) => {
+        if (err) {
+            let ret = vscode.window.showWarningMessage(
+                `Could not find '${configuration.get<string>("touistPath")}'
+                binary. Linter will be disabled for now.`, 'Always disable linter')
+                .then((ret) => {
+                    if (ret === 'Always disable linter') configuration.update("enableLint", false, true);
+                });
+            enabled = false;
+            return;
+        }
+        let expected = '3.2.0';
+        version = stdout.trim();
+        log(`installed version: ${version}, version needed: ${expected}`);
+        if(compareVersions(version, expected) < 0) {
+        let ret = vscode.window.showWarningMessage(
+            `'${configuration.get("touistPath")}' has version ${version} but
+            expected >= ${expected}. Linter is disabled for now.`, 'Disable linter').then((ret) => {
+                if (ret === 'Disable linter') configuration.update("enableLint", false, true);
+            });
+            enabled = false;
+        } else {
+            status.tooltip = `${configuration.get("touistPath")} ${version}`;
+        }
+    });
+
+    if (!enabled) return;
+
+    status.text = `${language}`;
+    status.command = "touist.changeLanguage";
+    status.show();
+
+    vscode.commands.registerTextEditorCommand("touist.changeLanguage", async (editor) => {
+        let items = [
+            {label: "SAT", description: "", detail: ""},
+            {label: "SMT", description: "SAT Modulo Theory", detail: ""},
+            {label: "QBF", description: "Quantified Boolean Formula", detail: ""}
+        ]
+        let item = await vscode.window.showQuickPick(items, {
+            placeHolder: "Select Language"
+        });
+        if (item === null) return;
+        language = item.label.toLowerCase();
+        status.text = `${language}`;
+        lintDocument(editor.document);
+    });
+
 
     let toVsPos = (pos) => {
-        return new vscode.Position(pos.line, pos.col);
+        return new vscode.Position(pos.line - 1, pos.col - 1);
     };
     let fromVsPos = (pos: vscode.Position) => {
-        return { line: pos.line, col: pos.character };
+        return { line: pos.line + 1, col: pos.character + 1 };
     };
     let toVsRange = (start, end) => {
         return new vscode.Range(toVsPos(start), toVsPos(end));
     };
     let provideLinter = async (document: vscode.TextDocument, token) => {
-        if (token.isCancellationRequested) return null;
-        if (token.isCancellationRequested) return null;
+        if (!enabled
+            || token.isCancellationRequested
+            || !configuration.get<boolean>('enableLint'))
+            return null;
         let touistPath = configuration.get<string>('touistPath');
-
-        let cmd = [touistPath, '--sat', '--linter', '--wrap-width=0', '-'];
+        let cmd = [touistPath, `--${language}`, '--linter', '--wrap-width=0', '--error-format="%f: line %l-%L, col %c-%C: %t: %m"', '-'];
+        log("cmd: " + cmd.join(' '));
         let cp = child_process.spawn(cmd[0],cmd.slice(1), {});
-        log("cmd: "+cmd.join(" "))
-        cp.stdin.write(document.getText());
-        cp.stdin.end();
-        let output = await getStream(cp.stderr);
 
-        cp.unref();
-        cp.on('close', (code) => {
-            log('touist returned '+code);
+        cp.on('error', (err) => {
+            let ret = vscode.window.showInformationMessage(`'${cmd[0]}' not found in path.`, 'Disable').then((ret) => {
+                if (ret === 'Disable') {
+                    configuration.update("enableLint", false, true);
+                }
+            });
+        });
+        cp.on('exit', (code: number, sig) => {
+            log('touist returned ' + code + ', signal: '+ sig);
             switch (code) {
-                case 124: return vscode.window.showInformationMessage('error with arguments in \'touist\' command: '+cmd.join(' '));
-                default:
-            }
-        })
-
-        let diagnostics = [];
-
-        log('output:\n'+output);
-        let fromType = (type) => {
-            switch (type) {
-                case "error": return vscode.DiagnosticSeverity.Error;
-                case "warning": return vscode.DiagnosticSeverity.Warning;
-            }
-        };
-        let regex = /^([^:]+): line (\d+), col (\d+)-(\d+): (error|warning): (.*)$/mg;
-
-        let pushDiag = (file, line: number, col1: number, col2: number, type, msg) => {
-            let diag = new vscode.Diagnostic(
-                toVsRange({ line, col: col1 }, { line, col: col2 }),
-                msg,
-                fromType(type.toLowerCase())
-            );
-            diag.source = 'touist';
-            diagnostics.push(diag);
-        };
-
-        let msg = '';
-        let file, row, col1, col2, type;
-        output.split("\n").forEach(line => {
-            let match = regex.exec(line);
-            if (match !== null) {
-                if (msg !== '') pushDiag(file, row, col1, col2, type, msg)
-                file = match[1];
-                row = +match[2];
-                col1 = +match[3];
-                col2 = +match[4];
-                type = match[5];
-                msg = match[6];
-            } else {
-                msg += '\n' + line;
+                case 124: return vscode.window.showInformationMessage('tell the developer: wrong \'touist\' command: '+cmd.join(' '));
             }
         });
-        if (msg !== '') pushDiag(file, row, col1, col2, type, msg.trim())
-        return diagnostics;
+
+        cp.stdin.write(document.getText());
+        cp.stdin.end();
+
+        let stderr = await getStream(cp.stderr)
+            .catch((err) => {
+            log(err);
+            vscode.window.showWarningMessage(
+                "touist error: "+err,
+            );
+            return "";
+        });
+
+        cp.unref();
+
+        let handle_stderr = (stderr) : vscode.Diagnostic[] => {
+            let diagnostics : vscode.Diagnostic[] = [];
+            log('stderr: '+stderr);
+            let fromType = (type) => {
+                switch (type) {
+                    case "error": return vscode.DiagnosticSeverity.Error;
+                    case "warning": return vscode.DiagnosticSeverity.Warning;
+                }
+            };
+            let regex = /^([^:]+): line (\d+)-(\d+), col (\d+)-(\d+): (error|warning): (.*)$/mg;
+            let pushDiag = (file, line1: number, line2: number, col1: number, col2: number, type, msg) => {
+                let diag = new vscode.Diagnostic(
+                    toVsRange({ line: line1, col: col1 }, { line: line2, col: col2 }),
+                    msg,
+                    fromType(type.toLowerCase())
+                );
+                diag.source = 'touist';
+                diagnostics.push(diag);
+            };
+
+            let msg = '';
+            let file, row1, row2, col1, col2, type;
+            stderr.split("\n").forEach(line => {
+                let match = regex.exec(line);
+                if (match !== null) {
+                    if (msg !== '') pushDiag(file, row1, row2, col1, col2, type, msg)
+                    file = match[1];
+                    row1 = +match[2]; row2 = +match[3];
+                    col1 = +match[4]; col2 = +match[5];
+                    type = match[6];
+                    msg = match[7];
+                } else {
+                    msg += line===''?'':'\n' + line;
+                }
+            });
+            if (msg !== '') pushDiag(file, row1, row2, col1, col2, type, msg.trim())
+            return diagnostics;
+        }
+
+        return handle_stderr(stderr);
     };
 
     let LINTER_DEBOUNCE_TIMER = new WeakMap();
@@ -88,7 +159,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let diagnosticCollection = vscode.languages.createDiagnosticCollection('touist');
 
-    let lintDocument = (document: vscode.TextDocument) => {
+    let lintDocument = async (document: vscode.TextDocument) => {
         if (document.languageId !== 'touist') return;
 
         clearTimeout(LINTER_DEBOUNCE_TIMER.get(document));
@@ -104,27 +175,28 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     vscode.workspace.onDidSaveTextDocument(async (document) => {
-        if (!configuration.get<boolean>('lintOnSave')) return;
+        if (!enabled || !configuration.get<boolean>('lintOnSave')
+            || configuration.get<boolean>('lintOnChange')
+            || document.languageId !== 'touist') return;
         let diagnostics = await provideLinter(document, new vscode.CancellationTokenSource().token);
         diagnosticCollection.set(document.uri, diagnostics);
     });
 
-    vscode.workspace.onDidChangeTextDocument(({ document }) => {
-        if (!configuration.get<boolean>('lintOnChange')) return;
+    vscode.workspace.onDidOpenTextDocument(async (document) => {
+        if (!enabled
+            || !configuration.get<boolean>('lintOnSave')
+            || document.languageId !== 'touist') return;
+        let diagnostics = await provideLinter(document, new vscode.CancellationTokenSource().token);
+        diagnosticCollection.set(document.uri, diagnostics);
+    });
+
+    vscode.workspace.onDidChangeTextDocument(async ({ document }) => {
+        if (!enabled || !configuration.get<boolean>('lintOnChange')) return;
 
         if (document.languageId === 'touist') {
             lintDocument(document);
             return;
         }
-
-        let relintOpenedDocuments = () => {
-            diagnosticCollection.clear();
-            for (let document of vscode.workspace.textDocuments) {
-                if (document.languageId === 'touist') {
-                    lintDocument(document);
-                }
-            }
-        };
     });
 
     vscode.workspace.onDidCloseTextDocument((document) => {
