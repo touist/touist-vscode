@@ -1,5 +1,4 @@
-Touist for vscode
-=================
+# Touist for vscode
 
 Bring syntax coloring and linting to vscode.
 
@@ -42,14 +41,13 @@ ckecking syntax errors in touist files:
 If you to fix the syntax file `touist.tmLanguage`, you can use the
 `touist.YAML-tmLanguage` file to do so and then go into `build` and run
 
-    npm install
-    npm start
+    yarn
+    yarn start
 
 to compile yaml into tmLanguage. The JSON-tmLanguage is also generated in
 case it can help for adding syntax support to an other editor.
 
 To debug the syntax highlighting, you can use the command
 **Developer Tools: Inspect TM Tokens**.
-
 
 [github]: https://github.com/touist/touist-vscode
