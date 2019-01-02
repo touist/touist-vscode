@@ -1,115 +1,115 @@
 {
-    "name": "touist",
-    "displayName": "touist",
-    "description": "Syntax support for the Touist language for logic",
-    "version": "0.1.1",
-    "publisher": "maelvalais",
-    "repository": "https://github.com/touist/touist-vscode",
-    "icon": "images/touist-logo.png",
-    "license": "MIT",
-    "engines": {
-        "vscode": "^1.6.0"
-    },
-    "categories": [
-        "Languages",
-        "Linters"
-    ],
-    "activationEvents": [
-        "onLanguage:touist"
-    ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "configuration": {
-            "title": "Touist configuration",
-            "properties": {
-                "touist.touistPath": {
-                    "type": "string",
-                    "default": "touist",
-                    "description": "Path to touist."
-                },
-                "touist.lintOnChange": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Do lint when made changes."
-                },
-                "touist.lintOnSave": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Do lint when save document."
-                },
-                "touist.lintDelay": {
-                    "type": "number",
-                    "default": 500,
-                    "description": "Time to delay lint when made changes."
-                },
-                "touist.enableLint": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable the linter using touist --linter."
-                }
-            }
+  "name": "touist",
+  "displayName": "touist",
+  "description": "Syntax support for the Touist language for logic",
+  "version": "0.1.1",
+  "publisher": "maelvalais",
+  "repository": "https://github.com/touist/touist-vscode",
+  "icon": "images/touist-logo.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.8.0"
+  },
+  "categories": [
+    "Languages",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:touist"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "configuration": {
+      "title": "Touist configuration",
+      "properties": {
+        "touist.touistPath": {
+          "type": "string",
+          "default": "touist",
+          "description": "Path to touist."
         },
-        "commands": [
-            {
-                "command": "touist.changeLanguage",
-                "title": "Touist: change language"
-            }
+        "touist.lintOnChange": {
+          "type": "boolean",
+          "default": true,
+          "description": "Do lint when made changes."
+        },
+        "touist.lintOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Do lint when save document."
+        },
+        "touist.lintDelay": {
+          "type": "number",
+          "default": 500,
+          "description": "Time to delay lint when made changes."
+        },
+        "touist.enableLint": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the linter using touist --linter."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "touist.changeLanguage",
+        "title": "Touist: change language"
+      }
+    ],
+    "languages": [
+      {
+        "id": "touist",
+        "aliases": [
+          "touist",
+          "touist"
         ],
-        "languages": [
-            {
-                "id": "touist",
-                "aliases": [
-                    "touist",
-                    "touist"
-                ],
-                "extensions": [
-                    ".touist",
-                    ".touistl"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+        "extensions": [
+          ".touist",
+          ".touistl"
         ],
-        "grammars": [
-            {
-                "language": "touist",
-                "scopeName": "source.touist",
-                "path": "./syntaxes/touist.tmLanguage"
-            }
-        ],
-        "problemMatchers": [
-            {
-                "name": "touist",
-                "owner": "touist",
-                "fileLocation": "relative",
-                "pattern": [
-                    {
-                        "regexp": "^([^:]+): line (\\d+), col (\\d+)-(\\d+): (error|warning): (.*)$",
-                        "file": 1,
-                        "line": 2,
-                        "column": 3,
-                        "endColumn": 4,
-                        "severity": 5,
-                        "message": 6
-                    }
-                ]
-            }
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "touist",
+        "scopeName": "source.touist",
+        "path": "./syntaxes/touist.tmLanguage"
+      }
+    ],
+    "problemMatchers": [
+      {
+        "name": "touist",
+        "owner": "touist",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^([^:]+): line (\\d+), col (\\d+)-(\\d+): (error|warning): (.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "endColumn": 4,
+            "severity": 5,
+            "message": 6
+          }
         ]
-    },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "start": "node build.js -w"
-    },
-    "devDependencies": {
-        "vscode": "^0.11.0",
-        "typescript": "^2.7.2",
-        "js-yaml": "latest",
-        "plist": "latest",
-        "glob-watcher": "latest"
-    },
-    "dependencies": {
-        "get-stream": "^2.2.1",
-        "compare-versions": "latest"
-    }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "start": "node build.js -w"
+  },
+  "devDependencies": {
+    "glob-watcher": "latest",
+    "js-yaml": "latest",
+    "plist": "latest",
+    "typescript": "^3.2.2",
+    "vscode": "^1.1.0"
+  },
+  "dependencies": {
+    "get-stream": "^4.1.0",
+    "compare-versions": "latest"
+  }
 }
