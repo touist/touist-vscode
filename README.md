@@ -24,15 +24,15 @@ ckecking syntax errors in touist files:
 
 ```js
 {
-	"version": "0.1.0",
-	"tasks": [{
-		"taskName": "build",
-		"command": "touist",
+    "version": "0.1.0",
+    "tasks": [{
+        "taskName": "build",
+        "command": "touist",
         "args": ["--linter", "--qbf", "${relativeFile}", "--wrap-width","0"],
         "isShellCommand": true,
-		"problemMatcher": "$touist",
-		"showOutput": "always"
-	}]
+        "problemMatcher": "$touist",
+        "showOutput": "always"
+    }]
 }
 ```
 
