@@ -4,13 +4,10 @@
     "target": "es6",
     "moduleResolution": "node",
     "outDir": "out",
-    "noLib": true,
+    "lib": ["es6"],
     "sourceMap": true,
     "allowJs": true,
     "rootDir": "."
   },
-  "exclude": [
-    "node_modules",
-    "out"
-  ]
+  "exclude": ["node_modules", "out"]
 }
